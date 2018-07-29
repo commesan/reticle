@@ -48,8 +48,7 @@ func (m *Measurement) TraceRoute() (TraceRoute, error) {
 	return tr, err
 }
 
-// Ping returns a Ping struct based on the data in the Raw field. Results in error is the measurement type
-// is not ping.
+// Ping returns a Ping struct based on the data in the Raw field. Results in error is the measurement type is not ping.
 func (m *Measurement) Ping() (Ping, error) {
 	var p Ping
 	if m.Type != "ping" {
@@ -59,8 +58,7 @@ func (m *Measurement) Ping() (Ping, error) {
 	return p, err
 }
 
-// DNS returns a DNS struct based on the data in the Raw field. Results in error is the measurement type
-// is not dns.
+// DNS returns a DNS struct based on the data in the Raw field. Results in error is the measurement type is not dns.
 func (m *Measurement) DNS() (DNS, error) {
 	var dns DNS
 
@@ -70,4 +68,16 @@ func (m *Measurement) DNS() (DNS, error) {
 
 	err := UnmarshalDNS(m.Raw, m.Firmware, &dns)
 	return dns, err
+}
+
+// HTTP returns a HTTP struct based on the data in the Raw field. Results in error is the measurement type is not http.
+func (m *Measurement) HTTP() (HTTP, error) {
+	var h HTTP
+
+	if m.Type != "http" {
+		return h, errorIncorrectType("http", m.Type)
+	}
+
+	err := UnmarshalHTTP(m.Raw, m.Firmware, &h)
+	return h, err
 }

@@ -33,7 +33,7 @@ definitly use Sagan. Support for older firmware versions will be added in time. 
 ##### DNS Lookup
 4740,4770-4790, 4900, 4910
 ##### HTTP
-Not yet implemented
+4650, 4680, 4770-4790, 4900-4940
 ##### SSL Cert
 Not yet implemented
 ##### NTP
@@ -43,10 +43,28 @@ Not yet implemented
 
 
 ### Version overview
-- [ ] Version 1 is identified by the value "1".
+- [ ] Version 4750 is currently the most recent version of the datastructure documentation. At the moment any value greather than 4750 conforms to the 4750 documentation. An upper limit to this version will added with the release of a firmware version that changes the datastructures.
+  - [x] Ping
+  - [x] Traceroute
+  - [x] DNS Lookup
+  - [X] HTTP
+  - [ ] SSL Cert
+  - [ ] NTP
+  - [ ] WIFI
+- [ ] Version 4610 is identified by a value of between "4610" and "4749".
   - [ ] Ping
-  - [ ] Traceroute
-- [ ] Version 4400 is identified by a value of between "4400" and "4459".
+  - [x] Traceroute
+  - [ ] DNS Lookup
+  - [X] HTTP
+  - [ ] SSL Cert
+  - [ ] NTP
+- [ ] Version 4570 is identified by a value of between "4570" and "4609".
+  - [ ] Ping
+  - [] Traceroute
+  - [ ] DNS Lookup
+  - [ ] HTTP
+  - [ ] SSL Cert
+- [ ] Version 4540 is identified by a value of between "4540" and "4569".
   - [ ] Ping
   - [ ] Traceroute
   - [ ] DNS Lookup
@@ -58,33 +76,15 @@ Not yet implemented
   - [ ] DNS Lookup
   - [ ] HTTP
   - [ ] SSL Cert
-- [ ] Version 4540 is identified by a value of between "4540" and "4569".
+- [ ] Version 4400 is identified by a value of between "4400" and "4459".
   - [ ] Ping
   - [ ] Traceroute
   - [ ] DNS Lookup
   - [ ] HTTP
   - [ ] SSL Cert
-- [ ] Version 4570 is identified by a value of between "4570" and "4609".
+- [ ] Version 1 is identified by the value "1".
   - [ ] Ping
-  - [] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-- [ ] Version 4610 is identified by a value of between "4610" and "4749".
-  - [ ] Ping
-  - [x] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-  - [ ] NTP
-- [ ] Version 4750 is currently the most recent version of the datastructure documentation. At the moment any value greather than 4750 conforms to the 4750 documentation. An upper limit to this version will added with the release of a firmware version that changes the datastructures.
-  - [x] Ping
-  - [x] Traceroute
-  - [x] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-  - [ ] NTP
-  - [ ] WIFI
+  - [ ] Traceroute
 
 
 ### Used test data
