@@ -1,12 +1,12 @@
-package v1
+package reticle
 
 import (
-	"testing"
 	"encoding/json"
+	"testing"
 )
 
 var dnsFirmwareTests = []struct {
-	fw  int
+	fw   int
 	json string
 }{
 	{4740, `{"af":4,"dst_addr":"216.239.34.106","from":"208.70.31.51","fw":4740,"group_id":15314087,"lts":8,"msm_id":15314087,"msm_name":"Tdig","prb_id":30251,"proto":"UDP","result":{"ANCOUNT":1,"ARCOUNT":0,"ID":43149,"NSCOUNT":0,"QDCOUNT":1,"abuf":"qI2EAAABAAEAAAAACDBES1A0YzVZBHRlc3QGZ2NwZG5zA25ldAAAAQABwAwAAQABAAAOEAAEaxbr9Q==","rt":150.274,"size":58},"src_addr":"208.70.31.51","stored_timestamp":1532169612,"timestamp":1532169602,"type":"dns"}`},
@@ -21,7 +21,7 @@ func TestParseDNS(t *testing.T) {
 	t.Log("Testing dns measurement parser for different firmware versions")
 
 	for _, test := range dnsFirmwareTests {
-		var dns DNS
+		var dns DNSMeasurement
 		UnmarshalDNS([]byte(test.json), test.fw, &dns)
 		trJson, _ := json.Marshal(dns)
 

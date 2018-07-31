@@ -1,12 +1,12 @@
-package v1
+package reticle
 
 import (
-	"testing"
 	"encoding/json"
+	"testing"
 )
 
 var tracerouteFirmwareTests = []struct {
-	fw  int
+	fw   int
 	json string
 }{
 	{4650, `{"af":6,"dst_addr":"2a01:5a8::1:4","dst_name":"2a01:5a8::1:4","endtime":1532168989,"from":"2001:630:2b:103:eade:27ff:fe69:b58a","fw":4650,"group_id":15314075,"lts":25,"msm_id":15314075,"msm_name":"Traceroute","paris_id":1,"prb_id":23184,"proto":"ICMP","result":[{"hop":1,"result":[{"from":"2001:630:2b:103::1","rtt":15.652,"size":96,"ttl":64},{"from":"2001:630:2b:103::1","rtt":1.49,"size":96,"ttl":64},{"from":"2001:630:2b:103::1","rtt":1.443,"size":96,"ttl":64}]},{"hop":2,"result":[{"x":"*"},{"from":"fdfb:9fce:f9a5:f808:eae7:32ff:fed0:4de9","rtt":0.52,"size":96,"ttl":63},{"from":"fdfb:9fce:f9a5:f808:eae7:32ff:fed0:4de9","rtt":0.423,"size":96,"ttl":63}]},{"hop":3,"result":[{"from":"fdfb:9fce:f9a5:f820:2e0:b1ff:fe70:9fcc","rtt":1.474,"size":96,"ttl":62},{"from":"fdfb:9fce:f9a5:f820:2e0:b1ff:fe70:9fcc","rtt":1.115,"size":96,"ttl":62},{"from":"fdfb:9fce:f9a5:f820:2e0:b1ff:fe70:9fcc","rtt":1.427,"size":96,"ttl":62}]},{"hop":4,"result":[{"from":"fdfb:9fce:f9a5:f800:2e0:b1ff:fe70:9f8c","rtt":3.241,"size":96,"ttl":61},{"from":"fdfb:9fce:f9a5:f800:2e0:b1ff:fe70:9f8c","rtt":1.154,"size":96,"ttl":61},{"from":"fdfb:9fce:f9a5:f800:2e0:b1ff:fe70:9f8c","rtt":1.081,"size":96,"ttl":61}]},{"hop":5,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":6,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":7,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":8,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":9,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":255,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]}],"size":48,"src_addr":"2001:630:2b:103:eade:27ff:fe69:b58a","stored_timestamp":1532169008,"timestamp":1532168912,"type":"traceroute"}`},
@@ -25,12 +25,11 @@ var tracerouteFirmwareTests = []struct {
 	{4945, `{"af":6,"dst_addr":"2a01:5a8::1:4","dst_name":"2a01:5a8::1:4","endtime":1532168937,"from":"2001:983:ba7e:1:fad1:11ff:fea9:f090","fw":4945,"group_id":15314075,"lts":24,"msm_id":15314075,"msm_name":"Traceroute","paris_id":1,"prb_id":10001,"proto":"ICMP","result":[{"hop":1,"result":[{"from":"2001:983:ba7e:1:ca0e:14ff:fe74:7476","rtt":1.547,"size":96,"ttl":64},{"from":"2001:983:ba7e:1:ca0e:14ff:fe74:7476","rtt":0.723,"size":96,"ttl":64},{"from":"2001:983:ba7e:1:ca0e:14ff:fe74:7476","rtt":0.71,"size":96,"ttl":64}]},{"hop":2,"result":[{"from":"2001:888:1:1002::1","rtt":5.659,"size":96,"ttl":63},{"from":"2001:888:1:1002::1","rtt":5.204,"size":96,"ttl":63},{"from":"2001:888:1:1002::1","rtt":5.192,"size":96,"ttl":63}]},{"hop":3,"result":[{"from":"2001:888:1:4031::1","rtt":12.446,"size":96,"ttl":62},{"from":"2001:888:1:4031::1","rtt":10.913,"size":96,"ttl":62},{"from":"2001:888:1:4031::1","rtt":5.868,"size":96,"ttl":62}]},{"hop":4,"result":[{"from":"2001:888:1:4005::1","rtt":5.66,"size":96,"ttl":61},{"from":"2001:888:1:4005::1","rtt":5.889,"size":96,"ttl":61},{"from":"2001:888:1:4005::1","rtt":5.677,"size":96,"ttl":61}]},{"hop":5,"result":[{"from":"2001:7f8:1::a500:6939:1","rtt":8.866,"size":96,"ttl":60},{"x":"*"},{"x":"*"}]},{"hop":6,"result":[{"x":"*"},{"x":"*"},{"x":"*"}]},{"hop":7,"result":[{"from":"2a01:5a8::1:4","rtt":44.407,"size":48,"ttl":58},{"from":"2a01:5a8::1:4","rtt":44.414,"size":48,"ttl":58},{"from":"2a01:5a8::1:4","rtt":44.358,"size":48,"ttl":58}]}],"size":48,"src_addr":"2001:983:ba7e:1:fad1:11ff:fea9:f090","stored_timestamp":1532168950,"timestamp":1532168916,"type":"traceroute"}`},
 }
 
-
 func TestUnmarshalTraceRoute(t *testing.T) {
 	t.Log("Testing traceroute parser for different firmware versions")
 
 	for _, test := range tracerouteFirmwareTests {
-		var tr TraceRoute
+		var tr TraceRouteMeasurement
 		UnmarshalTraceRoute([]byte(test.json), test.fw, &tr)
 		trJson, _ := json.Marshal(tr)
 
@@ -43,4 +42,4 @@ func TestUnmarshalTraceRoute(t *testing.T) {
 			t.Logf("\tVersion %d %s\n", test.fw, checkMark)
 		}
 	}
- }
+}

@@ -1,12 +1,12 @@
-package v1
+package reticle
 
 import (
-	"testing"
 	"encoding/json"
+	"testing"
 )
 
 var httpFirmwareTests = []struct {
-	fw  int
+	fw   int
 	json string
 }{
 	{4650, `{"from":"2a00:8740:0:2071:ea94:f6ff:fee3:57d8","fw":4650,"group_id":15313915,"lts":97,"msm_id":15313917,"msm_name":"HTTPGet","prb_id":23136,"result":[{"af":6,"bsize":12624,"dst_addr":"2a04:9140:3003:1101::a","hsize":131,"method":"GET","res":200,"rt":144.45,"src_addr":"2a00:8740:0:2071:ea94:f6ff:fee3:57d8","ver":"1.1"}],"stored_timestamp":1532169140,"timestamp":1532169106,"type":"http","uri":"http://fr-ysd-as201958.anchors.atlas.ripe.net:80/4096"}`},
@@ -20,12 +20,11 @@ var httpFirmwareTests = []struct {
 	{4940, `{"from":"2a05:7ac0:101:c000:fa1a:67ff:fe4d:7227","fw":4940,"group_id":15313915,"lts":71,"msm_id":15313917,"msm_name":"HTTPGet","prb_id":11296,"result":[{"af":6,"dst_addr":"2a04:9140:3003:1101::a","err":"timeout reading chunk: state 6 linelen 0 lineoffset 0","method":"GET","src_addr":"2a05:7ac0:101:c000:fa1a:67ff:fe4d:7227"}],"stored_timestamp":1532169426,"timestamp":1532169302,"type":"http","uri":"http://fr-ysd-as201958.anchors.atlas.ripe.net:80/4096"}`},
 }
 
-
 func TestUnmarshalHTTP(t *testing.T) {
 	t.Log("Testing http parser for different firmware versions")
 
 	for _, test := range httpFirmwareTests {
-		var h HTTP
+		var h HTTPMeasurement
 		UnmarshalHTTP([]byte(test.json), test.fw, &h)
 		hJson, _ := json.Marshal(h)
 
@@ -38,4 +37,4 @@ func TestUnmarshalHTTP(t *testing.T) {
 			t.Logf("\tVersion %d %s\n", test.fw, checkMark)
 		}
 	}
- }
+}

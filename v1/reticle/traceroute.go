@@ -1,4 +1,4 @@
-package v1
+package reticle
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 
 // UnmarshallTraceRoute parses the JSON-encoded data and stores the result in the value pointed to by tr.
 // It requires you to know the firmware version which this measurement was generated in.
-func UnmarshalTraceRoute(b []byte, fw int, tr *TraceRoute) (error) {
+func UnmarshalTraceRoute(b []byte, fw int, tr *TraceRouteMeasurement) error {
 	var err error
 
 	switch {
@@ -20,16 +20,13 @@ func UnmarshalTraceRoute(b []byte, fw int, tr *TraceRoute) (error) {
 	return err
 }
 
-// Works for vfw versions:
-// Version 4750 or greater.
-// Version 4610 is identified by a value between "4610" and "4749" for the key fw in the result.
-func parseTraceRoute(b []byte, tr *TraceRoute) (error) {
+func parseTraceRoute(b []byte, tr *TraceRouteMeasurement) error {
 	err := json.Unmarshal(b, &tr)
 	return err
 }
 
-// TraceRoute a struct reprensentation for a RIPE traceroute measurement
-type TraceRoute struct {
+// TraceRouteMeasurement measurement result
+type TraceRouteMeasurement struct {
 	AddrFamily      int                `json:"af"`
 	Bundle          int                `json:"bundle,omitempty"`
 	DestAddr        string             `json:"dst_addr"`
@@ -42,12 +39,12 @@ type TraceRoute struct {
 	MeasurementId   int                `json:"msm_id"`
 	MeasurementName string             `json:"msm_name"`
 	ParisId         int                `json:"paris_id"`
-	SrcProbeId      int                `json:"prb_id"`
+	ProbeID         int                `json:"prb_id"`
 	Proto           string             `json:"proto"`
 	Result          []TraceRouteResult `json:"result"`
 	Size            int                `json:"size"`
 	SrcAddr         string             `json:"src_addr"`
-	StoredTimestamp int 			   `json:"stored_timestamp"`
+	StoredTimestamp int                `json:"stored_timestamp"`
 	Timestamp       int                `json:"timestamp"`
 	TTR             float64            `json:"ttr,omitempty"`
 	Type            string             `json:"type"`
@@ -63,8 +60,8 @@ type TraceRouteHopResult struct {
 	Timeout         string   `json:"x,omitempty"`
 	Error           string   `json:"err,omitempty"`
 	From            string   `json:"from,omitempty"`
-	TTLInPacket     int      `json:"ittl,omitempty"`
-	DestAddrErr     string   `json:"edst,omitempty"`
+	ITTL            int      `json:"ittl,omitempty"`
+	DestAddrErr     string   `json:"dest,omitempty"`
 	Late            int      `json:"late,omitempty"`
 	Mtu             int      `json:"mtu,omitempty"`
 	RTT             float64  `json:"rtt,omitempty"`

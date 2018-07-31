@@ -1,4 +1,6 @@
 ## Reticle
+[![GoDoc](https://godoc.org/github.com/commesan/reticle?status.svg)](https://godoc.org/github.com/commesan/reticle)
+
 A parsing library for RIPE Atlas measurement results in Go
 
 RIPE Atlas generates a lot of data, and the format of that data changes over time. Often you want to do something simple 
@@ -15,42 +17,36 @@ Yes! RIPE's own parsing library [Sagan](https://github.com/RIPE-NCC/ripe.atlas.s
 for all the different probe firmware versions. But it's written in Python and I needed a Go version to integrate with the
 rest of my tooling. 
 
-For now Reticle only has support for the most recent firmware versions (>4650). So if you need support for older versions 
+For now Reticle only has support for the more recent firmware versions (>4650). So if you need support for older versions
 definitly use Sagan. Support for older firmware versions will be added in time. See below for the availible versions.    
 
 ### Usage
 
 #### Install 
 ```
-    go get github.com/commesan/reticle
+    go get github.com/commesan/reticle/v1/reticle
 ```
 
-### Tested firmware versions
-##### Ping
-4780,4910
-##### Traceroute
-4650-4790, 4900-4940
-##### DNS Lookup
-4740,4770-4790, 4900, 4910
-##### HTTP
-4650, 4680, 4770-4790, 4900-4940
-##### SSL Cert
-Not yet implemented
-##### NTP
-Not yet implemented
-##### WiFi
-Not yet implemented
+#### Example
+```go
+    dnsJson := `{"af":4,"dst_addr":"216.239.34.106","dst_port":"53","from":"195.130.61.208","fw":4910,"group_id":15314087,"lts":243,"msm_id":15314087,"msm_name":"Tdig","prb_id":6366,"proto":"UDP","result":{"ANCOUNT":1,"ARCOUNT":0,"ID":19295,"NSCOUNT":0,"QDCOUNT":1,"abuf":"S1+EAAABAAEAAAAACDBES1A0YzVZBHRlc3QGZ2NwZG5zA25ldAAAAQABwAwAAQABAAAOEAAEaxbr9Q==","rt":34.738,"size":58},"src_addr":"195.130.61.208","stored_timestamp":1532169612,"timestamp":1532169601,"type":"dns"}`
 
+    msmt, _ := ParseString(dnsJson)
+    dnsMsmt, _ := msmt.DNS()
+    responseTime := dnsMsmt.Result.RT
 
-### Version overview
-- [ ] Version 4750 is currently the most recent version of the datastructure documentation. At the moment any value greather than 4750 conforms to the 4750 documentation. An upper limit to this version will added with the release of a firmware version that changes the datastructures.
+    fmt.Printf("Request took: %f", responseTime)
+```
+
+### Tested for firmware
+- [x] Version 4750 is currently the most recent version of the datastructure documentation. At the moment any value greather than 4750 conforms to the 4750 documentation. An upper limit to this version will added with the release of a firmware version that changes the datastructures.
   - [x] Ping
   - [x] Traceroute
   - [x] DNS Lookup
-  - [X] HTTP
-  - [ ] SSL Cert
-  - [ ] NTP
-  - [ ] WIFI
+  - [x] HTTP
+  - [x] SSL Cert
+  - [x] NTP
+  - [x] WIFI
 - [ ] Version 4610 is identified by a value of between "4610" and "4749".
   - [ ] Ping
   - [x] Traceroute
@@ -58,37 +54,9 @@ Not yet implemented
   - [X] HTTP
   - [ ] SSL Cert
   - [ ] NTP
-- [ ] Version 4570 is identified by a value of between "4570" and "4609".
-  - [ ] Ping
-  - [] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-- [ ] Version 4540 is identified by a value of between "4540" and "4569".
-  - [ ] Ping
-  - [ ] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-- [ ] Version 4460 is identified by a value of between "4460" and "4539".
-  - [ ] Ping
-  - [ ] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-- [ ] Version 4400 is identified by a value of between "4400" and "4459".
-  - [ ] Ping
-  - [ ] Traceroute
-  - [ ] DNS Lookup
-  - [ ] HTTP
-  - [ ] SSL Cert
-- [ ] Version 1 is identified by the value "1".
-  - [ ] Ping
-  - [ ] Traceroute
 
-
-### Used test data
-- SSL: https://atlas.ripe.net/api/v2/measurements/15285836/results/?format=txt
+### For test data
+- SSL: https://atlas.ripe.net/api/v2/measurements/15364693/results/?format=txt
 - Ping: https://atlas.ripe.net/api/v2/measurements/9200642/results/?format=txt
 - Traceroute: https://atlas.ripe.net/api/v2/measurements/15314075/results/?format=txt
 - DNS: https://atlas.ripe.net/api/v2/measurements/15314087/results/?format=txt
