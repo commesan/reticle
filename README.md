@@ -1,5 +1,5 @@
 ## Reticle
-[![GoDoc](https://godoc.org/github.com/commesan/reticle?status.svg)](https://godoc.org/github.com/commesan/reticle)
+[![GoDoc](https://godoc.org/github.com/commesan/reticle?status.svg)](https://godoc.org/github.com/commesan/reticle/v1/reticle)
 
 A parsing library for RIPE Atlas measurement results in Go
 

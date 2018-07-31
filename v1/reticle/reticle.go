@@ -9,7 +9,7 @@
 //
 // Reticle should make it easier for RIPE Atlas users to use the measurement data. For each measurement type
 // (ping, traceroute, ...) it has a single struct regardless of the original firmware version. This struct will be modelled
-//  after the most recent firmware versions. Older version will be mapped onto the newer versions.
+// after the most recent firmware versions. Older version will be mapped onto the newer versions.
 package reticle
 
 import (
