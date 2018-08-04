@@ -169,3 +169,26 @@ func TestMeasurement_Wifi(t *testing.T) {
 		}
 	}
 }
+
+func TestMeasurmentsFromURL(t *testing.T) {
+	t.Log("MeasurementsFromURL should download a measurement file and return a list of measurements")
+	ms, err := MeasurmentsFromURL("https://atlas.ripe.net/api/v2/measurements/15597929/results/?start=1533340800&stop=1533427199&format=txt")
+	if len(ms) != 16 {
+		t.Logf("\tIncorrect number of meaurements found. Expected 16 got %d %s", len(ms), crossMark)
+		t.Fail()
+	} else if err != nil {
+		t.Logf("\tReturned unexpected error %s %s", err.Error(), crossMark)
+		t.Fail()
+	} else {
+		t.Log("\tMeaurements correctly read ", checkMark)
+	}
+
+	t.Log("MeasurementsFromURL should check for nd-json format (format=txt), return error for json format")
+	_, err = MeasurmentsFromURL("https://atlas.ripe.net/api/v2/measurements/15597929/results/?start=1533340800&stop=1533427199&format=json")
+	if err.Error() != "not recognized as a nd-json format, format parameter in url should be txt" {
+		t.Logf("\tFormat check failed %s", crossMark)
+		t.Fail()
+	} else {
+		t.Logf("\tMeaurements format type correctly checked %s", checkMark)
+	}
+}

@@ -1,5 +1,6 @@
 ## Reticle
-[![GoDoc](https://godoc.org/github.com/commesan/reticle?status.svg)](https://godoc.org/github.com/commesan/reticle/v1/reticle)[![Go Report Card](https://goreportcard.com/badge/github.com/commesan/reticle)](https://goreportcard.com/report/github.com/commesan/reticle)
+[![GoDoc](https://godoc.org/github.com/commesan/reticle?status.svg)](https://godoc.org/github.com/commesan/reticle/v1/reticle)
+[![Go Report Card](https://goreportcard.com/badge/github.com/commesan/reticle)](https://goreportcard.com/report/github.com/commesan/reticle)
 
 A parsing library for RIPE Atlas measurement results in Go
 
@@ -34,8 +35,14 @@ definitly use Sagan. Support for older firmware versions will be added in time. 
     msmt, _ := ParseString(dnsJson)
     dnsMsmt, _ := msmt.DNS()
     responseTime := dnsMsmt.Result.RT
-
     fmt.Printf("Request took: %f", responseTime)
+    
+    # or read measurments from url
+    ms, err := MeasurmentsFromURL("https://atlas.ripe.net/api/v2/measurements/15597929/results/?format=txt")
+    for _, m := range ms {
+    	tr, _ := m.TraceRoute()
+    	fmt.Printf("Traceroute from %s to %s \n", tr.FromAddr, tr.DestAddr)
+    }
 ```
 
 ### Tested for firmware

@@ -13,8 +13,13 @@
 package reticle
 
 import (
+	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"net/http"
+	"strings"
 )
 
 type Measurement struct {
@@ -122,4 +127,40 @@ func (m *Measurement) Wifi() (WifiMeasurement, error) {
 
 	err := UnmarshalWifi(m.Raw, m.Firmware, &w)
 	return w, err
+}
+
+// MeasurementsFromURL uses the URL that you can get from the URL Preview pane on the Ripe Atlas > Measurements > Results.
+// Code expects the download version with one json object per line (format=txt) not the single json (format.json)
+func MeasurmentsFromURL(url string) ([]Measurement, error) {
+	var ms []Measurement
+	if !strings.HasSuffix(url, "txt") {
+		return ms, errors.New("not recognized as a nd-json format, format parameter in url should be txt")
+	}
+
+	resp, err := http.Get(url)
+	if err != nil {
+		return ms, err
+	}
+	if resp.StatusCode != 200 {
+		return ms, fmt.Errorf("Request returned status code %d", resp.StatusCode)
+	}
+
+	reader := bufio.NewReader(resp.Body)
+	for {
+		l, _, err := reader.ReadLine()
+		if err != nil {
+			if err == io.EOF {
+				err = nil
+			}
+			return ms, err
+		}
+
+		m, err := Parse(l)
+		if err != nil {
+			return ms, err
+		}
+		ms = append(ms, m)
+	}
+
+	return ms, err
 }
