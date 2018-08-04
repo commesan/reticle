@@ -39,21 +39,14 @@ definitly use Sagan. Support for older firmware versions will be added in time. 
 ```
 
 ### Tested for firmware
-- [x] Version 4750 is currently the most recent version of the datastructure documentation. At the moment any value greather than 4750 conforms to the 4750 documentation. An upper limit to this version will added with the release of a firmware version that changes the datastructures.
-  - [x] Ping
-  - [x] Traceroute
-  - [x] DNS Lookup
-  - [x] HTTP
-  - [x] SSL Cert
-  - [x] NTP
-  - [x] WIFI
-- [ ] Version 4610 is identified by a value of between "4610" and "4749".
-  - [ ] Ping
-  - [x] Traceroute
-  - [ ] DNS Lookup
-  - [X] HTTP
-  - [ ] SSL Cert
-  - [ ] NTP
+  - Ping : fw >= 4610
+  - Traceroute : All
+  - DNS Lookup : fw >= 4610
+  - HTTP : fw >= 4750
+  - SSL Cert : fw >= 4750
+  - NTP : fw >= 4750
+  - WIFI : fw >= 4750
+
 
 ### For test data
 - SSL: https://atlas.ripe.net/api/v2/measurements/15364693/results/?format=txt
