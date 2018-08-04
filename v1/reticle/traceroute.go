@@ -70,13 +70,12 @@ type TraceRouteHopResult struct {
 	Flags           string   `json:"flags,omitempty"`
 	DestOptSize     int      `json:"dstoptsize,omitempty"`
 	HopByHopOptSize int      `json:"hbhoptsize,omitempty"`
-
 }
 
 type ICMPExt struct {
 	Object  []IcmpObject `json:"obj"`
-	RFC4884 int         `json:"rfc4884"`
-	Version int         `json:"version"`
+	RFC4884 int          `json:"rfc4884"`
+	Version int          `json:"version"`
 }
 
 type IcmpObject struct {
