@@ -2,7 +2,6 @@ package reticle
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 )
 
@@ -12,10 +11,10 @@ func UnmarshalTraceRoute(b []byte, fw int, tr *TraceRouteMeasurement) error {
 	var err error
 
 	switch {
-	case fw >= 4650:
+	case fw >= 4460:
 		err = parseTraceRoute(b, tr)
 	default:
-		err = errors.New(fmt.Sprintf("Unsupported firmware version %d", fw))
+		err = fmt.Errorf("Untested firmware version %d", fw)
 	}
 	return err
 }
@@ -34,17 +33,17 @@ type TraceRouteMeasurement struct {
 	Endtime         int                `json:"endtime"`
 	FromAddr        string             `json:"from"`
 	Fw              int                `json:"fw"`
-	GroupId         int                `json:"group_id"`
-	Lts             int                `json:"lts"`
+	GroupId         int                `json:"group_id,omitempty"`
+	Lts             int                `json:"lts,omitempty"`
 	MeasurementId   int                `json:"msm_id"`
-	MeasurementName string             `json:"msm_name"`
+	MeasurementName string             `json:"msm_name,omitempty"`
 	ParisId         int                `json:"paris_id"`
 	ProbeID         int                `json:"prb_id"`
 	Proto           string             `json:"proto"`
 	Result          []TraceRouteResult `json:"result"`
 	Size            int                `json:"size"`
 	SrcAddr         string             `json:"src_addr"`
-	StoredTimestamp int                `json:"stored_timestamp"`
+	StoredTimestamp int                `json:"stored_timestamp,omitempty"`
 	Timestamp       int                `json:"timestamp"`
 	TTR             float64            `json:"ttr,omitempty"`
 	Type            string             `json:"type"`
@@ -60,6 +59,7 @@ type TraceRouteHopResult struct {
 	Timeout         string   `json:"x,omitempty"`
 	Error           string   `json:"err,omitempty"`
 	From            string   `json:"from,omitempty"`
+	ICMPExt         *ICMPExt `json:"icmpext,omitempty"`
 	ITTL            int      `json:"ittl,omitempty"`
 	DestAddrErr     string   `json:"dest,omitempty"`
 	Late            int      `json:"late,omitempty"`
@@ -70,19 +70,19 @@ type TraceRouteHopResult struct {
 	Flags           string   `json:"flags,omitempty"`
 	DestOptSize     int      `json:"dstoptsize,omitempty"`
 	HopByHopOptSize int      `json:"hbhoptsize,omitempty"`
-	ICMPExt         *ICMPExt `json:"icmpext,omitempty"`
+
 }
 
 type ICMPExt struct {
+	Object  []IcmpObject `json:"obj"`
+	RFC4884 int         `json:"rfc4884"`
 	Version int         `json:"version"`
-	RFC4884 int         `json:"frc4884"`
-	Object  *IcmpObject `json:"obj"`
 }
 
 type IcmpObject struct {
 	Class int    `json:"class"`
-	Type  int    `json:"type"`
 	MPLS  []MPLS `json:"mpls,omitempty"`
+	Type  int    `json:"type"`
 }
 
 type MPLS struct {
