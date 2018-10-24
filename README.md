@@ -18,8 +18,8 @@ Yes! RIPE's own parsing library [Sagan](https://github.com/RIPE-NCC/ripe.atlas.s
 for all the different probe firmware versions. But it's written in Python and I needed a Go version to integrate with the
 rest of my tooling. 
 
-For now Reticle only has support for the more recent firmware versions (>4650). So if you need support for older versions
-definitly use Sagan. Support for older firmware versions will be added in time. See below for the availible versions.    
+For now Reticle only has full support for the traceroutes of all  firmware versions. Support for older firmware versions 
+for the other measurement types will be added in time. See below for the availible versions.    
 
 ### Usage
 
