@@ -40,7 +40,7 @@ type TraceRouteMeasurement struct {
 	ParisId         int                `json:"paris_id"`
 	ProbeID         int                `json:"prb_id"`
 	Proto           string             `json:"proto"`
-	Result          []TraceRouteResult `json:"result"`
+	Hops            []Hop              `json:"result"`
 	Size            int                `json:"size"`
 	SrcAddr         string             `json:"src_addr"`
 	StoredTimestamp int                `json:"stored_timestamp,omitempty"`
@@ -49,14 +49,14 @@ type TraceRouteMeasurement struct {
 	Type            string             `json:"type"`
 }
 
-type TraceRouteResult struct {
+type Hop struct {
 	Hop    int                   `json:"hop"`
 	Error  string                `json:"error,omitempty"`
-	Result []TraceRouteHopResult `json:"result,omitempty"`
+	HopResultForPackets []HopResult `json:"result,omitempty"`
 }
 
-type TraceRouteHopResult struct {
-	Timeout         string   `json:"x,omitempty"`
+type HopResult struct {
+	X               string   `json:"x,omitempty"`
 	Error           string   `json:"err,omitempty"`
 	From            string   `json:"from,omitempty"`
 	ICMPExt         *ICMPExt `json:"icmpext,omitempty"`
