@@ -26,32 +26,32 @@ func parseTraceRoute(b []byte, tr *TraceRouteMeasurement) error {
 
 // TraceRouteMeasurement measurement result
 type TraceRouteMeasurement struct {
-	AddrFamily      int                `json:"af"`
-	Bundle          int                `json:"bundle,omitempty"`
-	DestAddr        string             `json:"dst_addr"`
-	DestName        string             `json:"dst_name"`
-	Endtime         int                `json:"endtime"`
-	FromAddr        string             `json:"from"`
-	Fw              int                `json:"fw"`
-	GroupId         int                `json:"group_id,omitempty"`
-	Lts             int                `json:"lts,omitempty"`
-	MeasurementId   int                `json:"msm_id"`
-	MeasurementName string             `json:"msm_name,omitempty"`
-	ParisId         int                `json:"paris_id"`
-	ProbeID         int                `json:"prb_id"`
-	Proto           string             `json:"proto"`
-	Hops            []Hop              `json:"result"`
-	Size            int                `json:"size"`
-	SrcAddr         string             `json:"src_addr"`
-	StoredTimestamp int                `json:"stored_timestamp,omitempty"`
-	Timestamp       int                `json:"timestamp"`
-	TTR             float64            `json:"ttr,omitempty"`
-	Type            string             `json:"type"`
+	AddrFamily      int     `json:"af"`
+	Bundle          int     `json:"bundle,omitempty"`
+	DestAddr        string  `json:"dst_addr"`
+	DestName        string  `json:"dst_name"`
+	Endtime         int     `json:"endtime"`
+	FromAddr        string  `json:"from"`
+	Fw              int     `json:"fw"`
+	GroupId         int     `json:"group_id,omitempty"`
+	Lts             int     `json:"lts,omitempty"`
+	MeasurementId   int     `json:"msm_id"`
+	MeasurementName string  `json:"msm_name,omitempty"`
+	ParisId         int     `json:"paris_id"`
+	ProbeID         int     `json:"prb_id"`
+	Proto           string  `json:"proto"`
+	Hops            []Hop   `json:"result"`
+	Size            int     `json:"size"`
+	SrcAddr         string  `json:"src_addr"`
+	StoredTimestamp int     `json:"stored_timestamp,omitempty"`
+	Timestamp       int     `json:"timestamp"`
+	TTR             float64 `json:"ttr,omitempty"`
+	Type            string  `json:"type"`
 }
 
 type Hop struct {
-	Hop    int                   `json:"hop"`
-	Error  string                `json:"error,omitempty"`
+	Hop                 int         `json:"hop"`
+	Error               string      `json:"error,omitempty"`
 	HopResultForPackets []HopResult `json:"result,omitempty"`
 }
 

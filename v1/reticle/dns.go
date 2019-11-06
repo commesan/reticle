@@ -2,7 +2,6 @@ package reticle
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 )
 
@@ -15,7 +14,7 @@ func UnmarshalDNS(b []byte, fw int, d *DNSMeasurement) error {
 	case fw >= 4740:
 		err = parseDNS(b, d)
 	default:
-		err = errors.New(fmt.Sprintf("Unsupported firmware version %d", fw))
+		err = fmt.Errorf("Unsupported firmware version %d", fw)
 	}
 	return err
 }
